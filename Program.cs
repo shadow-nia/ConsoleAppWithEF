@@ -2,11 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+
 var configurationBuilder = new ConfigurationBuilder();
 configurationBuilder.SetBasePath(Directory.GetCurrentDirectory());
 configurationBuilder.AddJsonFile("appsettings.json");
 var config = configurationBuilder.Build();
 var connectionString = config.GetConnectionString("DefaultConnection");
+
 
 var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
 var options = optionsBuilder.UseSqlite(connectionString).Options;
