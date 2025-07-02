@@ -2,6 +2,12 @@
 
 using (ApplicationContext db = new ApplicationContext())
 {
+    // Creating DB
+    db.Database.EnsureDeleted();
+    db.Database.EnsureCreated();
+
+
+
     // Creating our objects
     User jacob = new User { Name = "Jacob", Age = 32, Company = new Company { Name = "Google" } };
     // Adding our object to database 

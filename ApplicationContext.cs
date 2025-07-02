@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 public class ApplicationContext : DbContext
 {
     public DbSet<User> Users { get; set; } = null!;
-    public  ApplicationContext() {
+    //public  ApplicationContext() {
 
-        Database.EnsureCreated();
-    }
+    //    Database.EnsureCreated();
+    //}
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var config = new ConfigurationBuilder()
@@ -20,7 +20,7 @@ public class ApplicationContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().Ignore(u => u.Company);
+        modelBuilder.Entity<User>().Ignore(u => u.Name);
     }
 
 }
