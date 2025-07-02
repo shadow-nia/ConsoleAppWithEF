@@ -22,11 +22,8 @@ public class ApplicationContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
-        modelBuilder.Entity<User>().ToTable("People", schema: "userstore");
-        modelBuilder.Entity<User>().Property("Id").HasField("id").HasColumnName("user_id");
-        modelBuilder.Entity<User>().Property("Age").HasField("age");
-        modelBuilder.Entity<User>().Property("name");
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new CompanyConfiguration());
     }
 
 }
