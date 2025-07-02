@@ -5,7 +5,8 @@ using Microsoft.Extensions.Configuration;
 public class ApplicationContext : DbContext
 {
     public DbSet<User> Users { get; set; } = null!;
-    //public  ApplicationContext() {
+    //public ApplicationContext()
+    //{
 
     //    Database.EnsureCreated();
     //}
@@ -18,9 +19,14 @@ public class ApplicationContext : DbContext
 
         optionsBuilder.UseSqlite(config.GetConnectionString("DefaultConnection"));
     }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().Ignore(u => u.Name);
+
+        modelBuilder.Entity<User>().ToTable("People", schema: "userstore");
+        modelBuilder.Entity<User>().Property("Id").HasField("id").HasColumnName("user_id");
+        modelBuilder.Entity<User>().Property("Age").HasField("age");
+        modelBuilder.Entity<User>().Property("name");
     }
 
 }
