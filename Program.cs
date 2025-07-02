@@ -1,23 +1,9 @@
 ﻿using ConsoleAppWithEF;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
-
-var configurationBuilder = new ConfigurationBuilder();
-configurationBuilder.SetBasePath(Directory.GetCurrentDirectory());
-configurationBuilder.AddJsonFile("appsettings.json");
-var config = configurationBuilder.Build();
-var connectionString = config.GetConnectionString("DefaultConnection");
-
-
-var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-var options = optionsBuilder.UseSqlite(connectionString).Options;
-
-
-using (ApplicationContext db = new ApplicationContext(options))
+using (ApplicationContext db = new ApplicationContext())
 {
     // Creating our objects
-    User jacob = new User { Name = "Jacob", Age = 32 };
+    User jacob = new User { Name = "Jacob", Age = 32, Company = new Company { Name = "Google" } };
     // Adding our object to database 
     db.Users.Add(jacob);
     db.SaveChanges();
@@ -25,7 +11,7 @@ using (ApplicationContext db = new ApplicationContext(options))
 
 }
 
-using (ApplicationContext db = new ApplicationContext(options))
+using (ApplicationContext db = new ApplicationContext())
 {
     // Getting our objects from database
     var users = db.Users.ToList();
@@ -33,7 +19,7 @@ using (ApplicationContext db = new ApplicationContext(options))
     foreach (var user in users) Console.WriteLine($"{user.Id}.{user.Name} - {user.Age}");
 }
 
-using (ApplicationContext db = new ApplicationContext(options))
+using (ApplicationContext db = new ApplicationContext())
 {
     // Updating last object from database
     User? user = db.Users.OrderBy(u => u.Id).LastOrDefault();
@@ -52,7 +38,7 @@ using (ApplicationContext db = new ApplicationContext(options))
 
 }
 
-using (ApplicationContext db = new ApplicationContext(options))
+using (ApplicationContext db = new ApplicationContext())
 {
     // Deleting first object from database
     User? user = db.Users.OrderBy(u => u.Id).LastOrDefault();
