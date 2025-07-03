@@ -6,8 +6,8 @@ using (ApplicationContext db = new ApplicationContext())
     db.Database.EnsureCreated();
 
 
-    User bob = new User("Bob", 30);
-    User kate = new User("Kate", 29);
+    User bob = new User { Name = "Bob", Age = 30 };
+    User kate = new User{ Name = "Kate", Age = 29 };
     db.Users.Add(bob);
     db.Users.Add(kate);
     db.SaveChanges();
@@ -15,6 +15,6 @@ using (ApplicationContext db = new ApplicationContext())
     var users = db.Users.ToList();
     foreach (User user in users)
     {
-        user.Print();
+        Console.WriteLine($"{user.Id}.{user.Name} - {user.Age}");
     }
 }
