@@ -7,7 +7,7 @@ namespace ConsoleAppWithEF
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-            builder.ToTable("Enterprises").Property(c => c.Name).IsRequired();
+            //builder.ToTable("Enterprises").Property(c => c.Name).IsRequired();
         }
     }
 }

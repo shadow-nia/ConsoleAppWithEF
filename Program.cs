@@ -2,19 +2,18 @@
 
 using (ApplicationContext db = new ApplicationContext())
 {
-    db.Database.EnsureDeleted();
-    db.Database.EnsureCreated();
+    Company company1 = new Company { Name = "Google" };
+    Company company2 = new Company { Name = "Microsoft" };
+    User user1 = new User { Name = "Tom", Company = company1 };
+    User user2 = new User { Name = "Bob", Company = company2 };
+    User user3 = new User { Name = "Sam", Company = company2 };
 
-
-    User bob = new User { Name = "Bob", Age = 30 };
-    User kate = new User{ Name = "Kate", Age = 29 };
-    db.Users.Add(bob);
-    db.Users.Add(kate);
+    db.Companies.AddRange(company1, company2);
+    db.Users.AddRange(user1, user2, user3);
     db.SaveChanges();
 
-    var users = db.Users.ToList();
-    foreach (User user in users)
+    foreach (var user in db.Users.ToList())
     {
-        Console.WriteLine($"{user.Id}.{user.Name} - {user.Age}");
+        Console.WriteLine($"{user.Name} works in {user.Company?.Name}");
     }
 }
